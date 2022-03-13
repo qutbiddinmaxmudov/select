@@ -1,4 +1,11 @@
-import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { clx } from '../helpers/classnames'
 import styles from './Select.module.css'
 
@@ -40,15 +47,18 @@ const Select = ({
     [inputValue, opts]
   )
 
-  useEffect(() => {
-    window.onclick = (e) => {
+  const handleClick = useCallback(
+    (e) => {
       const path = e.composedPath()
       if (opened && select.current && !path.includes(select.current)) {
         collapseMenu()
       }
-    }
+    },
+    [opened]
+  )
 
-    window.onkeydown = (e) => {
+  const handleKeyboard = useCallback(
+    (e) => {
       if (e.code === 'Escape' && opened) collapseMenu()
       else if (e.code === 'ArrowDown' && opened)
         setFocused((prev) => {
@@ -58,7 +68,7 @@ const Select = ({
         })
       else if (e.code === 'ArrowUp' && opened)
         setFocused((prev) => {
-          const n = prev !== null ? prev - 1 : options.length
+          const n = prev !== null ? prev - 1 : options.length - 1
           if (n <= 0) return 0
           return n
         })
@@ -66,13 +76,19 @@ const Select = ({
         e.preventDefault()
         onChange(options[focused].value)
       }
-    }
+    },
+    [opened, focused, options]
+  )
+
+  useEffect(() => {
+    window.addEventListener('click', handleClick)
+    window.addEventListener('keydown', handleKeyboard)
 
     return () => {
-      window.onclick = null
-      window.onkeydown = null
+      window.removeEventListener('click', handleClick)
+      window.removeEventListener('keydown', handleKeyboard)
     }
-  }, [opened, focused, options])
+  }, [handleClick, handleKeyboard])
 
   useEffect(() => collapseMenu(), [value])
   const handleFocus = (i: number) => setFocused(i)

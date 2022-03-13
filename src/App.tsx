@@ -25,7 +25,7 @@ const App = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
-        <div className='selects'>
+        <div className="selects">
           <Select
             onChange={setSelectCity}
             options={countries}
@@ -35,6 +35,7 @@ const App = () => {
             onChange={setSelectCountry}
             options={langs}
             value={selectCountry}
+            placeholder={'Choose country'}
           />
         </div>
       </header>
