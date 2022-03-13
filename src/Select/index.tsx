@@ -1,11 +1,4 @@
-import React, {
-  ChangeEvent,
-  forwardRef,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { clx } from '../helpers/classnames'
 import styles from './Select.module.css'
 
