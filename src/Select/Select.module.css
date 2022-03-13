@@ -1,0 +1,52 @@
+.select {
+  position: relative;
+}
+
+.field {
+  width: 200px;
+  margin: 0;
+  border: none;
+  outline: none;
+  display: block;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  font-family: inherit;
+  text-align-last: left;
+}
+
+.menu {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  width: 100%;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: 0.3s;
+}
+
+.menu.open {
+  transform: scaleY(1)
+}
+
+.option {
+  font-size: 16px;
+  text-align: left;
+  background-color: white;
+  color: black;
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.3s background-color;
+}
+
+.focused {
+  background-color: #ccc;
+}
+
+.selected {
+  background: #ccc;
+  pointer-events: 'none';
+}
